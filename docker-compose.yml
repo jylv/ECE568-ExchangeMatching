@@ -1,0 +1,25 @@
+version: '2'
+
+services:
+  db:
+      image: postgres
+      restart: always
+      environment:
+        POSTGRES_PASSWORD: postgres
+        POSTGRES_USER: postgres
+        POSTGRES_DB: postgres
+      volumes:
+            - data-volume:/var/lib/postgresql/data
+
+  se-server:
+      build: ./src
+      command: bash -c "make && ./server 64"
+      ports:
+        - "12345:12345"
+      volumes:
+        - ./src:/stock-exchange-server
+      depends_on:
+        - db
+  
+volumes:
+      data-volume: 

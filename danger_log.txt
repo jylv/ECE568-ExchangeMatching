@@ -1,0 +1,14 @@
+ECE568 project4: Scalability:	Exchange Matching - danger log
+
+1.	The integer on	the	first	line	is the length of the XML data which follows it. The size of XML requests the client sent should be correct, otherwise the server will refuse to deal with it, because the xml parser will not parse it correctly. 
+
+2.	The account ID of create XML should be equal to the account ID of transaction XML, so that the server can deal with it correctly. Otherwise, it will throw out the error message all the time. 
+
+3.	It may meet race condition during the concurrency requests. To avoid that from happening, we take advantage of the serializable transaction in PostgreSQL, preventing conflicts between simultaneous modifications to the same object. When a transaction performs a write operation, other write requests will be suspended waiting. If there're serializable conflicts, the transactions not yet committed would be rolled back and retried
+
+4.	If there are too many meaningless symbols, too much meaningless data may exceed the database's capacity and it may break the database due to too many useless to store. If there exists a malicious user, enter malicious commands to destroy the system, which may cause the server to collapse. So a symbol validation system is required to filter the incoming symbols before actually processing.
+
+5.	One thread can only have one database transaction at a time, so for multithreading server, each thread should connect to the database separately.
+
+6.	Transactions may be retried so many times that, on the clients side, the latency is unacceptable. So the solution is setting a limit for retry times. If the retry times of certain transaction have passed the limit, an error message should be sent to the client and inform him/her to try again later.
+

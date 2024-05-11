@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MyStudentsData>
+    <Student student_type="Part-time">
+        <Name>John</Name>
+    </Student>
+    <test a="1" b="22" b="222">
+        <name>Jeremy</name>
+    </test>
+    <Student student_type="Full-time">
+        <Name>Sean</Name>
+    </Student>
+    <Student student_type="Part-time">
+        <Name>Sarah</Name>
+        <Name>djkdb</Name>
+    </Student>
+    <test a="1" b="22" b="222">
+        <name>Jeremy</name>
+    </test>
+</MyStudentsData>
